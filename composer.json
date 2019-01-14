@@ -1,5 +1,7 @@
 {
     "type": "project",
+    "name": "liinkiing/hfl-api",
+    "description": "API for the game Harder, Faster, Looser",
     "license": "proprietary",
     "require": {
         "php": "^7.1.3",
