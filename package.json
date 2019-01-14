@@ -1,0 +1,7 @@
+{
+  "name": "hfl-api",
+  "version": "1.0.0",
+  "scripts": {
+    "deploy": "git push heroku master"
+  }
+}

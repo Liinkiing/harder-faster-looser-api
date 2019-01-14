@@ -2,7 +2,6 @@
 
 namespace App\Controller\Api;
 
-
 use App\Controller\ApiController;
 use App\Repository\PlayerRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
