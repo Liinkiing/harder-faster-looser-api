@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/api/leaderboard")
+ * @Route("/leaderboard")
  */
 class LeaderboardController extends ApiController
 {
