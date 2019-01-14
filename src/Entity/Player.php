@@ -4,11 +4,13 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PlayerRepository")
+ * @UniqueEntity(fields={"username"}, message="username.unique")
  */
 class Player
 {
@@ -22,6 +24,8 @@ class Player
 
     /**
      * @Groups({"api"})
+     * @Assert\NotNull()
+     * @Assert\LessThanOrEqual(value="400", message="score.less_than_or_equal")
      * @ORM\Column(type="integer")
      */
     private $score;
@@ -35,7 +39,7 @@ class Player
     /**
      * @Groups({"api"})
      * @Assert\Length(min="3", max="30")
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=30, unique=true)
      */
     private $username;
 

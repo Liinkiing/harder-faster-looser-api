@@ -3,11 +3,20 @@
 namespace App\Controller;
 
 
+use App\Serializer\FormErrorsSerializer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ApiController extends AbstractController
 {
+
+    private $formErrorsSerializer;
+
+    public function __construct(FormErrorsSerializer $formErrorsSerializer)
+    {
+        $this->formErrorsSerializer = $formErrorsSerializer;
+    }
 
     protected function json($data, int $status = 200, array $headers = array(), array $context = array()): JsonResponse
     {
@@ -20,6 +29,11 @@ class ApiController extends AbstractController
         }
 
         return new JsonResponse($data, $status, $headers);
+    }
+
+    protected function createFormErrors(FormInterface $form): array
+    {
+        return $this->formErrorsSerializer->convertFormToArray($form);
     }
 
 }
