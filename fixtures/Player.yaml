@@ -1,0 +1,4 @@
+App\Entity\Player:
+  player{1..30}:
+    username: <username()>
+    score: <numberBetween(10, 400)>
