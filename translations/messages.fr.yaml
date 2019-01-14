@@ -1,1 +1,2 @@
 error.auth_needed: Authentification nécessaire.
+error.invalid_credentials: Informations d'authentification non valides.

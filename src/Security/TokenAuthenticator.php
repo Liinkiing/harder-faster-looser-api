@@ -59,7 +59,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
         return new JsonResponse([
-            'error' => $this->translator->trans($exception->getMessageKey(), $exception->getMessageData())
+            'error' => $this->translator->trans('error.invalid_credentials')
         ], Response::HTTP_FORBIDDEN);
     }
 
