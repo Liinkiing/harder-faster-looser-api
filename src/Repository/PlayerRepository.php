@@ -19,4 +19,18 @@ class PlayerRepository extends ServiceEntityRepository
         parent::__construct($registry, Player::class);
     }
 
+    /**
+     * @param int $first
+     * @return Player[]
+     */
+    public function findFirst(int $first): array
+    {
+        $qb = $this->createQueryBuilder('p');
+
+        return $qb->orderBy('p.score', 'DESC')
+            ->setMaxResults($first)
+            ->getQuery()
+            ->getResult();
+    }
+
 }

@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PlayerRepository")
@@ -19,12 +20,6 @@ class Player
      */
     private $id;
 
-    /***
-     * @Groups({"api"})
-     * @ORM\Column(type="string", length=255)
-     */
-    private $username;
-
     /**
      * @Groups({"api"})
      * @ORM\Column(type="integer")
@@ -37,21 +32,16 @@ class Player
      */
     private $createdAt;
 
+    /**
+     * @Groups({"api"})
+     * @Assert\Length(min="3", max="30")
+     * @ORM\Column(type="string", length=30)
+     */
+    private $username;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getUsername(): ?string
-    {
-        return $this->username;
-    }
-
-    public function setUsername(string $username): self
-    {
-        $this->username = $username;
-
-        return $this;
     }
 
     public function getScore(): ?int
@@ -74,6 +64,18 @@ class Player
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
 
         return $this;
     }
