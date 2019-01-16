@@ -29,7 +29,6 @@ class Player
     private $score;
 
     /**
-     * @Groups({"api"})
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      */
