@@ -32,7 +32,7 @@ class LeaderboardController extends ApiController
     public function rank(int $score, PlayerRepository $repository): JsonResponse
     {
         return $this->json(
-            $repository->findRankForScore($score)
+            ['rank' => $repository->findRankForScore($score)]
         );
     }
 
