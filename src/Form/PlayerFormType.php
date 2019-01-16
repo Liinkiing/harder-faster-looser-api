@@ -20,6 +20,7 @@ class PlayerFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
+            'csrf_protection' => false,
             'data_class' => Player::class,
         ]);
     }
