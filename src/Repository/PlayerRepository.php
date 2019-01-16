@@ -30,7 +30,7 @@ class PlayerRepository extends ServiceEntityRepository
         $rsm->addRootEntityFromClassMetadata(Player::class, 'p');
         $rsm->addScalarResult('rank', 'rank', 'integer');
         $query = $this->getEntityManager()->createNativeQuery(
-            'SELECT id, score, username, @curRank := @curRank + 1 AS rank FROM player p, (SELECT @curRank := 0) q ORDER BY score DESC LIMIT ' . $first,
+            'SELECT id, score, username, created_at, @curRank := @curRank + 1 AS rank FROM player p, (SELECT @curRank := 0) q ORDER BY score DESC, created_at ASC LIMIT ' . $first,
             $rsm
         );
         $results = array_map(function ($resultSet) {

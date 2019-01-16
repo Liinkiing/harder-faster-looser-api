@@ -6,6 +6,7 @@ namespace App\Controller\Api;
 use App\Controller\ApiController;
 use App\Entity\Player;
 use App\Form\PlayerFormType;
+use App\Repository\PlayerRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -22,7 +23,7 @@ class PlayerController extends ApiController
     /**
      * @Route("/new", name="api.player.new", methods={"PUT", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $em, FormFactoryInterface $factory): JsonResponse
+    public function new(Request $request, EntityManagerInterface $em, FormFactoryInterface $factory, PlayerRepository $repository): JsonResponse
     {
         $player = new Player();
         $data = json_decode($request->getContent(), true);
@@ -32,6 +33,9 @@ class PlayerController extends ApiController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($player);
+            $player->setRank(
+                $repository->findRankForScore($player->getScore())
+            );
             $em->flush();
 
             return $this->json(
@@ -47,5 +51,5 @@ class PlayerController extends ApiController
             Response::HTTP_BAD_REQUEST
         );
     }
-    
+
 }
