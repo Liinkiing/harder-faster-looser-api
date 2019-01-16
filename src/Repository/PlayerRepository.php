@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Player;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -25,12 +26,22 @@ class PlayerRepository extends ServiceEntityRepository
      */
     public function findFirst(int $first): array
     {
-        $qb = $this->createQueryBuilder('p');
+        $rsm = new ResultSetMappingBuilder($this->getEntityManager());
+        $rsm->addRootEntityFromClassMetadata(Player::class, 'p');
+        $rsm->addScalarResult('rank', 'rank', 'integer');
+        $query = $this->getEntityManager()->createNativeQuery(
+            'SELECT id, score, username, @curRank := @curRank + 1 AS rank FROM player p, (SELECT @curRank := 0) q ORDER BY score DESC LIMIT ' . $first,
+            $rsm
+        );
+        $results = array_map(function ($resultSet) {
+            /** @var Player $player */
+            $player = $resultSet[0];
+            $player->setRank($resultSet['rank']);
 
-        return $qb->orderBy('p.score', 'DESC')
-            ->setMaxResults($first)
-            ->getQuery()
-            ->getResult();
+            return $player;
+        }, $query->getResult());
+
+        return $results;
     }
 
 }

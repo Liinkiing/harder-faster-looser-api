@@ -41,6 +41,23 @@ class Player
      */
     private $username;
 
+    /**
+     * @Groups({"api"})
+     */
+    private $rank;
+
+    public function getRank(): ?int
+    {
+        return $this->rank;
+    }
+
+    public function setRank(int $rank): self
+    {
+        $this->rank = $rank;
+
+        return $this;
+    }
+
     public function getId(): ?string
     {
         return $this->id;
@@ -78,6 +95,18 @@ class Player
     public function setUsername(string $username): self
     {
         $this->username = $username;
+
+        return $this;
+    }
+
+    public function getPosition(): ?int
+    {
+        return $this->position;
+    }
+
+    public function setPosition(int $position): self
+    {
+        $this->position = $position;
 
         return $this;
     }
