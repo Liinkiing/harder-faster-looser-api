@@ -1,0 +1,5 @@
+App\Entity\User:
+  main:
+    username: main
+    apiToken: letokendedev
+    roles: [ROLE_ADMIN]
