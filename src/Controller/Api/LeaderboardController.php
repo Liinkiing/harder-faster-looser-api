@@ -15,14 +15,24 @@ class LeaderboardController extends ApiController
 {
 
     /**
-     * @Route("/all", name="api.leaderboard.index")
+     * @Route("/all", name="api.leaderboard.all", methods={"GET"})
      */
-    public function index(RequestStack $request, PlayerRepository $repository): JsonResponse
+    public function all(RequestStack $request, PlayerRepository $repository): JsonResponse
     {
         $first = $request->getCurrentRequest()->query->get('first', 10);
 
         return $this->json(
             $repository->findFirst($first)
+        );
+    }
+
+    /**
+     * @Route("/rank/{score}", requirements={"score"="\d+"}, name="api.leaderboard.rank", methods={"GET"})
+     */
+    public function rank(int $score, PlayerRepository $repository): JsonResponse
+    {
+        return $this->json(
+            $repository->findRankForScore($score)
         );
     }
 

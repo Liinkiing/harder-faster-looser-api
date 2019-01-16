@@ -44,4 +44,27 @@ class PlayerRepository extends ServiceEntityRepository
         return $results;
     }
 
+    /**
+     * @param int $score
+     * @return int
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findRankForScore(int $score): int
+    {
+        $qb = $this->createQueryBuilder('p');
+        $qb
+            ->select(
+                $qb->expr()->count('p.id')
+            )
+            ->andWhere(
+                $qb->expr()->gt('p.score', ':score')
+            )
+            ->orWhere(
+                $qb->expr()->andX($qb->expr()->eq('p.score', ':score'), $qb->expr()->lt('p.createdAt', ':created'))
+            )
+            ->setParameter('score', $score)
+            ->setParameter('created', new \DateTime());
+
+        return (int)$qb->getQuery()->getSingleScalarResult() + 1;
+    }
 }
