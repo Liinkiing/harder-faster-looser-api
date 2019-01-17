@@ -27,9 +27,9 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-         - { path: ^/, roles: ROLE_ADMIN, ip: 127.0.0.1 }
-         - { path: ^/, roles: ROLE_ADMIN, host: harder-faster-looser\.herokuapp\.com$ }
-         - { path: ^/, allow_if: false }
+#         - { path: ^/, roles: ROLE_ADMIN, ip: 127.0.0.1 }
+#         - { path: ^/, roles: ROLE_ADMIN, host: harder-faster-looser.herokuapp.com$ }
+#         - { path: ^/, allow_if: false }
     providers:
         # used to reload user from session & other features (e.g. switch_user)
         app_user_provider:
