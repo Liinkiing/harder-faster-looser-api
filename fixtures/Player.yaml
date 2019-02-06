@@ -1,4 +1,4 @@
 App\Entity\Player:
   player{1..30}:
     username: <( strtoupper( substr( md5( uniqid( rand(), true ) ) , 0, 3) ) )>
-    score: <numberBetween(10, 80)>
+    score: <numberBetween(50, 350)>
