@@ -23,7 +23,7 @@ class Player
     /**
      * @Groups({"api"})
      * @Assert\NotNull()
-     * @Assert\LessThanOrEqual(value="1200", message="score.less_than_or_equal")
+     * @Assert\LessThanOrEqual(value="1400", message="score.less_than_or_equal")
      * @ORM\Column(type="integer")
      */
     private $score;
